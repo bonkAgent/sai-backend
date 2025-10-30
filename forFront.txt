@@ -1,0 +1,224 @@
+GET api/sidepanel/balance
+    headers: {
+        accessToken: string
+    }
+
+    response:
+    {
+        phantomBalance: number
+        kaelusBalance{
+            breakdown[
+                {
+                    symbol: string
+                    name: string
+                    address: string
+                    balance: number
+                    logogURI: string
+                }
+                {...}
+            ]
+        }
+    }
+
+GET api/sidepanel/getFriends
+    headers: {
+        accessToken: string
+    }
+
+    response:
+    [
+        {
+            name: string,
+            walletAddress: string
+        }
+        {...}
+    ]
+
+POST api/chat
+    headers: {
+        accessToken: string
+    }
+
+    body:{
+        msg: string
+        priorityFee: number
+        history:[
+            {
+                text: string
+                sender: string (user || assistant)
+            }
+            {...}
+        ]
+        friends:[
+            {
+                name: string,
+                walletAddress: string
+            }   
+        ]
+    }
+
+    response:{
+        content: string
+    }
+
+POST api/sidepanel/transfer
+    headers: {
+        accessToken: string
+    }
+
+    body:{
+        from: string (kaelus || phantom)
+        publicKey: string
+        amount: number
+        priorityFee: number
+    }
+
+    //first scneario if from === kaelus
+    response:{
+        status: string
+    }
+
+    //second scneario if from === phantom
+    response:{
+        publicKey: string
+    }
+
+//////////////////////////////////////////////////////
+GET api/tool
+    headers: {
+        accessToken: string
+    }
+
+    response:{        
+        tool_name: string
+        time: string
+        aitext: string
+        tool_res: Object
+        needToBalance: number
+    }
+
+FETCH_PRICE
+    resForStatus: {
+        resultsForStatus: {
+            [mintAddress: string]: {
+            price: number
+            symbol?: string
+            tokenURI?: string
+            }
+        }
+    }
+
+GET_TOKEN_DATA
+    resForStatus: {
+        name: string
+        symbol: string
+        address: string
+        logoURI?: string
+
+        priceUsd?: number
+        marketCap?: number
+        high24h?: number
+        low24h?: number
+        holderCount?: number
+
+        projectDescription?: string
+        website?: string
+        twitter?: string
+        telegram?: string
+
+        topHolders?: Array<{ address: string; balance: number }>
+        tradingData?: {
+            price?: number
+            history_5m_price?: any
+            history_1h_price?: any
+            history_6h_price?: any
+            history_24h_price?: any
+
+            price_change_5m_percent?: number
+            price_change_1h_percent?: number
+            price_change_6h_percent?: number
+            price_change_24h_percent?: number
+
+            volume_5m_usd?: number
+            volume_1h_usd?: number
+            volume_6h_usd?: number
+            volume_24h_usd?: number
+        }
+    }
+
+TRANSFER_TOKENS
+    resForStatus: {
+        status: "success"
+        transactionId: string
+        to: string
+        amount: number
+        token: {
+            symbol: string
+            address: string
+            logoURI?: string
+        }
+    }
+
+SWAP
+
+        resForStatus: {
+            status: "success"
+            id: string
+            amountFrom: number
+            from: {
+                symbol: string
+                address: string
+                logoURI?: string
+            }
+            amountTo: number
+            to: {
+                symbol: string
+                address: string
+                logoURI?: string
+            }
+        }
+
+    LAUNCHPAD
+        resForStatus: {
+        res: any
+    }
+
+LIST_STAKING_OPTIONS
+    resForStatus: {
+        text: string
+    }
+
+STAKE
+    resForStatus: {
+        status: "success"
+        transactionId: string
+        details: `Staked ${amount} SOL via Marinade. You received mSOL.`
+    }
+
+Platforms JITO / JPOOL: same to SWAP (go to SWAP):
+
+MARINADE
+    resForStatus: {
+        status: "success"
+        transactionId: string
+        details: `Staked ${amount} SOL via Marinade. You received mSOL.`
+    }
+
+CREATE_TOKEN
+    resForStatus: {
+        name: string
+        symbol: string
+        mint: string
+        uri: string
+        imageUrl?: string
+        poolState: string
+        baseVault: string
+        quoteVault: string
+        metadata: string
+    }
+
+/////////////////////////////////////////////////////////
+
+POST api/chat
+msg = markdown
+so you need to render it as markdown

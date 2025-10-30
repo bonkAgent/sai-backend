@@ -1,0 +1,12 @@
+# Ignore secrets
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.pfx
+*.crt
+node_modules/
+bin/
+obj/
+
